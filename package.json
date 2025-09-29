@@ -9,15 +9,56 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onLanguage:markdown"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "snippets": [
+      {
+        "language": "markdown",
+        "path": "./snippets/snippets.code-snippets"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "kdbTodo.onKeyPressEnter",
+        "key": "enter",
+        "when": "resourceLangId == markdown && !vim.mode || resourceLangId == markdown && vim.mode == 'Insert'"
+      }
+    ],
     "commands": [
       {
-        "command": "kdb-md.helloWorld",
-        "title": "Hello World"
+        "command": "kdbTodo.markDone",
+        "title": "Mark done"
+      },
+      {
+        "command": "kdbTodo.postpone",
+        "title": "Postpone"
       }
-    ]
+    ],
+    "submenus": [
+      {
+        "id": "kdbTodo.submenu",
+        "label": "Todo"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "submenu": "kdbTodo.submenu",
+          "group": "1_modification"
+        }
+      ],
+      "kdbTodo.submenu": [
+        {
+          "command": "kdbTodo.markDone"
+        },
+        {
+          "command": "kdbTodo.postpone"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

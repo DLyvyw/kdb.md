@@ -1,0 +1,198 @@
+{
+    "emoji item": {
+        "prefix": "/emoji",
+        "body": [
+            "${1|🔷,📈,✔️,⚠️,⏳,🚧,❓,❗,‼️,ℹ️,💡,📌,🚩,➡️,📝,🕒,🗓️,❌,🌎,📧,🎯,🧩,🏷️,🔍,🔥,📞,⚙️,🔗|}",
+        ],
+        "description": "emoji item"
+    },
+    "todo priority item": {
+        "prefix": "/todo-priority",
+        "body": [
+            "${1|🔷,❗,‼️|} ${2:Important}",
+            "$0"
+        ],
+        "description": "todo item with priority"
+    },
+    "todo item": {
+        "prefix": "/todo",
+        "body": [
+            "🔷 ${1:TODO}",
+            "$0"
+        ],
+        "description": "todo item"
+    },
+    "todo item list": {
+        "prefix": "/todo-list",
+        "body": [
+            "- 🔷 ${1:TODO}",
+            "$0"
+        ],
+        "description": "todo item"
+    },
+    "todo item subtask": {
+        "prefix": "/todo-subtask",
+        "body": [
+            "   - 🔷 ${1:TODO}",
+            "$0"
+        ],
+        "description": "todo item"
+    },
+    "todo item 2": {
+        "prefix": "TODO",
+        "body": [
+            "🔷 ${1:TODO}",
+            "$0"
+        ],
+        "description": "todo item"
+    },
+    "status item": {
+        "prefix": "/status",
+        "body": [
+            "${1|🔷,📈,✔️,🚩|}$0",
+        ],
+        "description": "todo item"
+    },
+    "mark done item": {
+        "prefix": "/done",
+        "body": [
+            "${TM_CURRENT_LINE/🔷(.*)/~~✔️$1~~/}",
+        ],
+        "description": "mark item done"
+    },
+    "h1 headline": {
+        "prefix": "/h1",
+        "body": [
+            "# $1",
+            "",
+            "$0"
+        ],
+        "description": "h1 headline"
+    },
+    "h2 headline": {
+        "prefix": "/h2",
+        "body": [
+            "## $1",
+            "",
+            "$0"
+        ],
+        "description": "h2 headline"
+    },
+    "h3 headline": {
+        "prefix": "/h3",
+        "body": [
+            "### $1",
+            "",
+            "$0"
+        ],
+        "description": "h3 headline"
+    },
+    "h4 headline": {
+        "prefix": "/h4",
+        "body": [
+            "#### $1",
+            "",
+            "$0"
+        ],
+        "description": "h4 headline"
+    },
+    "h5 headline": {
+        "prefix": "/h5",
+        "body": [
+            "##### $1",
+            "",
+            "$0"
+        ],
+        "description": "h5 headline"
+    },
+    "h6 headline": {
+        "prefix": "/h6",
+        "body": [
+            "###### $1",
+            "",
+            "$0"
+        ],
+        "description": "h6 headline"
+    },
+    "bold": {
+        "prefix": "/bold",
+        "body": [
+            "**$1**"
+        ],
+        "description": "make text bold"
+    },
+    "italic": {
+        "prefix": "/italic",
+        "body": [
+            "*$1*"
+        ],
+        "description": "make text italic"
+    },
+    "bold&italic": {
+        "prefix": "/bold and italic",
+        "body": [
+            "***$1***"
+        ],
+        "description": "make text bold & italic"
+    },
+    "strikethrough": {
+        "prefix": "/strikethrough",
+        "body": [
+            "~~$1~~"
+        ],
+        "description": "put strikethrough text"
+    },
+    "quote": {
+        "prefix": "/quote",
+        "body": [
+            "> $1"
+        ],
+        "description": "quote text"
+    },
+    "code block": {
+        "prefix": "/code",
+        "body": [
+            "```$1",
+            "$2",
+            "```",
+            "",
+            "$0"
+        ],
+        "description": "code block"
+    },
+    "paste code block from clipboard": {
+        "prefix": "/paste-code",
+        "body": [
+            "```$1",
+            "$CLIPBOARD",
+            "```",
+            "",
+            "$0"
+        ],
+        "description": "code block"
+    },
+    "link": {
+        "prefix": "/link",
+        "body": [
+            "[$2]($1)",
+            "$0"
+        ],
+        "description": "inline link"
+    },
+    "paste link": {
+        "prefix": "/paste-link",
+        "body": [
+            "[$1]($CLIPBOARD)",
+            "$0"
+        ],
+        "description": "paste inline link"
+    },
+    "image": {
+        "prefix": "/image",
+        "body": [
+            "![$2]($1)",
+            "$0"
+        ],
+        "description": "image"
+    },
+}
