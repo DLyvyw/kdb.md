@@ -1,18 +1,7 @@
 import * as vscode from "vscode";
 import { TodoItem } from "./TodoItem";
 
-function markTodoItemAsDone(text: string): string {
-  text = text.replaceAll("[ ]", "[x]");
-  text = text.replaceAll("[-]", "[x]");
-  text = text.replaceAll("TODO:", "DONE:");
-  text = text.replaceAll("🔷", "✔️");
-  text = text.replaceAll("📈", "✔️");
-  text = text.replaceAll("❗", "️❕");
-  text = text.replaceAll("‼️", "️❕");
-  return text;
-}
-
-export function markdownTodoMarkDone() {
+export function markdownTodoUpdate(cb: (text:string)=>string) {
   const editor = vscode.window.activeTextEditor;
 
   if (editor) {
@@ -20,7 +9,7 @@ export function markdownTodoMarkDone() {
     const selectedText = editor.document.getText(selection);
 
     if (selectedText) {
-      const processedText = markTodoItemAsDone(selectedText);
+      const processedText = cb(selectedText);
       editor.edit((editBuilder) => {
         editBuilder.replace(selection, processedText);
       });
@@ -28,7 +17,7 @@ export function markdownTodoMarkDone() {
       const currentLine = editor.document.lineAt(
         editor.selection.active.line
       ).text;
-      const processedText = markTodoItemAsDone(currentLine);
+      const processedText = cb(currentLine);
       editor.edit((editBuilder) => {
         editBuilder.replace(
           new vscode.Range(

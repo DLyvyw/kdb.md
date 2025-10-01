@@ -14,6 +14,14 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "configuration": {
+      "properties": {
+        "kdbTodo.enableCodeLens": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
     "snippets": [
       {
         "language": "markdown",
@@ -23,14 +31,22 @@
     "keybindings": [
       {
         "command": "kdbTodo.onKeyPressEnter",
-        "key": "enter",
-        "when": "resourceLangId == markdown && !vim.mode || resourceLangId == markdown && vim.mode == 'Insert'"
+        "key": "shift+enter",
+        "when": "editorTextFocus && resourceLangId == markdown && !vim.mode || editorTextFocus && resourceLangId == markdown && vim.mode == 'Insert'"
       }
     ],
     "commands": [
       {
         "command": "kdbTodo.markDone",
         "title": "Mark done"
+      },
+      {
+        "command": "kdbTodo.markInProgress",
+        "title": "Set in progress"
+      },
+      {
+        "command": "kdbTodo.markBlocked",
+        "title": "Set blocked"
       },
       {
         "command": "kdbTodo.postpone",
@@ -53,6 +69,12 @@
       "kdbTodo.submenu": [
         {
           "command": "kdbTodo.markDone"
+        },
+        {
+          "command": "kdbTodo.markInProgress"
+        },
+        {
+          "command": "kdbTodo.markBlocked"
         },
         {
           "command": "kdbTodo.postpone"

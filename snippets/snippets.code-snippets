@@ -53,12 +53,13 @@
         ],
         "description": "todo item"
     },
-    "mark done item": {
-        "prefix": "/done",
+    
+    "result item": {
+        "prefix": "/result",
         "body": [
-            "${TM_CURRENT_LINE/🔷(.*)/~~✔️$1~~/}",
+            "➡️ $1",
         ],
-        "description": "mark item done"
+        "description": "todo item"
     },
     "h1 headline": {
         "prefix": "/h1",

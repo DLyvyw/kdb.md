@@ -3,8 +3,13 @@ import * as vscode from "vscode";
 import { TodoDocumentSymbolProvider } from "./SymbolProvider";
 import { getCWFromDate, getDateWeek } from "./DateUtils";
 import { updateTodoDecorations } from "./TodoDecorations";
-import { TodoItem } from "./TodoItem";
-import { markdownListInsertNewItem, markdownTodoMarkDone } from "./TextEditorActions";
+import { markTodoItemAsBlocked, markTodoItemAsDone, markTodoItemAsInProgress, TodoItem } from "./TodoItem";
+import {
+  markdownListInsertNewItem,
+  markdownTodoUpdate,
+} from "./TextEditorActions";
+import { CodelensProvider } from "./CodeLenseProvider";
+import { MarkDoneAction } from "./CodeActionProvider";
 
 // this method is called when vs code is activated
 export function activate(context: vscode.ExtensionContext) {
@@ -97,9 +102,18 @@ export function activate(context: vscode.ExtensionContext) {
   );
 
   vscode.commands.registerCommand("kdbTodo.markDone", () => {
-    markdownTodoMarkDone();
+    markdownTodoUpdate(markTodoItemAsDone);
   });
-
+  vscode.commands.registerCommand("kdbTodo.markInProgress", () => {
+    markdownTodoUpdate(markTodoItemAsInProgress);
+  });
+  vscode.commands.registerCommand("kdbTodo.markBlocked", () => {
+    markdownTodoUpdate(markTodoItemAsBlocked);
+  });
+  vscode.commands.registerCommand("kdbTodo.postpone", () => {
+    // TODO (add date?)
+    markdownTodoUpdate(markTodoItemAsBlocked);
+  });
 
   // create a new status bar item that we can now manage
   const myStatusBarItem = vscode.window.createStatusBarItem(
@@ -111,6 +125,18 @@ export function activate(context: vscode.ExtensionContext) {
   myStatusBarItem.text = `${weekNumber}`;
   myStatusBarItem.color = "red";
   myStatusBarItem.show();
+
+  context.subscriptions.push(
+    vscode.languages.registerCodeActionsProvider(
+      "markdown",
+      new MarkDoneAction(),
+      {
+        providedCodeActionKinds: MarkDoneAction.providedCodeActionKinds,
+      }
+    )
+  );
+
+  context.subscriptions.push(
+    vscode.languages.registerCodeLensProvider("markdown", new CodelensProvider())
+  );
 }
-
-
