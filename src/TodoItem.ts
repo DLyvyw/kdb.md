@@ -10,7 +10,8 @@ export enum TodoPriority {
 
 export class TodoItem {
   public static readonly RegEx =
-    /(🔷|⏳|❓|❗|‼️|🚩|⚠️|📈|TODO:|WIP:|BLOCKED:|\[[-!\s]\])(<([^>]+)>)?\s*([^➡️.\r\n]+)/g;
+    /*✓☑*/
+    /(‼️|✨|✔️|⛔️|⚠️|🇼🇮|📈|📝|📉|TODO:|WIP:|BLOCKED:|\[[-\s!]\])(<([^>]+)>)?\s*([^➡️.;\r\n]+)/g;
 
   public readonly text: string;
   private readonly info: string;
@@ -29,15 +30,21 @@ export class TodoItem {
   }
   public get priority(): TodoPriority {
     let priority = TodoPriority.Normal;
-    if (this.todoPrefix === "‼️" || this.todoPrefix === "⚠️") {
+    if (this.todoPrefix === "‼️" ||
+       this.todoPrefix === "⛔️" || 
+       this.todoPrefix === "📈") {
       priority = TodoPriority.Critical;
     } else if (
-      this.todoPrefix === "❗" ||
-      this.todoPrefix === "🚩" ||
-      this.todoPrefix === "❓"
+      this.todoPrefix === "✨" ||
+      this.todoPrefix === "⚠️" ||
+      this.todoPrefix === "📝"
     ) {
       priority = TodoPriority.High;
-    } else if (this.todoPrefix === "📈") {
+    } else if (
+      this.todoPrefix === "✔️"||
+      this.todoPrefix === "🇼🇮"||
+      this.todoPrefix === "📉"
+    ) {
       priority = TodoPriority.Normal;
     } else {
       priority = TodoPriority.Low;
@@ -81,22 +88,21 @@ export class TodoItem {
 
   public get isInProgress(): boolean {
     return (
-      this.todoPrefix === "WIP:" ||
-      this.todoPrefix === "[-]" ||
       this.todoPrefix === "📈" ||
-      this.todoPrefix === "❗" ||
-      this.todoPrefix === "‼️"
-    );
+      this.todoPrefix === "📝" ||
+      this.todoPrefix === "📉" ||
+      this.todoPrefix === "WIP:" ||
+      this.todoPrefix === "[-]" 
+  );
   }
 
   public get isBlocked(): boolean {
     return (
       this.todoPrefix === "BLOCKED:" ||
       this.todoPrefix === "[!]" ||
-      this.todoPrefix === "⏳" ||
-      this.todoPrefix === "🚩" ||
+      this.todoPrefix === "⛔️" ||
       this.todoPrefix === "⚠️" ||
-      this.todoPrefix === "❓"
+      this.todoPrefix === "🇼🇮"
     );
   }
 }
@@ -108,15 +114,15 @@ export function markTodoItemAsDone(text: string): string {
   text = text.replaceAll("TODO:", "DONE:");
   text = text.replaceAll("WIP:", "DONE:");
   text = text.replaceAll("BLOCKED:", "DONE:");
-  text = text.replaceAll("🔷", "✔️");
-  text = text.replaceAll("📈", "✔️");
-  text = text.replaceAll("⏳", "✔️");
-  text = text.replaceAll("❗", "️❕");
-  text = text.replaceAll("❗", "️❕");
-  text = text.replaceAll("‼️", "️❕");
-  text = text.replaceAll("⚠️", "️❕");
-  text = text.replaceAll("🚩", "️❕");
-  text = text.replaceAll("❓", "️❔");
+  text = text.replaceAll("✔️", "☑");
+  text = text.replaceAll("🇼🇮", "☑");
+  text = text.replaceAll("📉", "☑");
+  text = text.replaceAll("✨", "☑");
+  text = text.replaceAll("⚠️", "☑");
+  text = text.replaceAll("📝", "☑");
+  text = text.replaceAll("‼️", "☑");
+  text = text.replaceAll("⛔️", "☑");
+  text = text.replaceAll("📈", "☑");
   return text;
 }
 
@@ -125,24 +131,38 @@ export function markTodoItemAsInProgress(text: string): string {
   text = text.replaceAll("[!]", "[-]");
   text = text.replaceAll("TODO:", "WIP:");
   text = text.replaceAll("BLOCKED:", "WIP:");
-  text = text.replaceAll("🔷", "📈");
-  text = text.replaceAll("⏳", "📈");
-  text = text.replaceAll("🚩", "❗");
-  text = text.replaceAll("️⚠️", "‼️");
+  text = text.replaceAll("✔️", "📉");
+  text = text.replaceAll("🇼🇮", "📉");
+  text = text.replaceAll("✨", "📝");
+  text = text.replaceAll("⚠️", "📝");
+  text = text.replaceAll("⛔️", "📈");
+  text = text.replaceAll("‼️", "📈");
   return text;
 }
 
 export function markTodoItemAsBlocked(text: string): string {
+  text = text.replaceAll("[ ]", "[!]");
   text = text.replaceAll("[-]", "[!]");
   text = text.replaceAll("WIP:", "BLOCKED:");
-  text = text.replaceAll("📈", "⏳");
-  text = text.replaceAll("❗", "️🚩");
-  text = text.replaceAll("‼️", "⚠️");
+  text = text.replaceAll("TODO:", "BLOCKED:");
+  text = text.replaceAll("✔️", "🇼🇮");
+  text = text.replaceAll("📉", "🇼🇮");
+  text = text.replaceAll("✨", "⚠️");
+  text = text.replaceAll("📝", "⚠️");
+  text = text.replaceAll("‼️", "⛔️");
+  text = text.replaceAll("📈", "⛔️");
   return text;
 }
 
 export function increaseTodoItemPriority(text: string): string {
-  text = text.replaceAll("❗", "‼️");
-  text = text.replaceAll("🔷", "❗");
+  text = text.replaceAll("✨", "‼️");
+  text = text.replaceAll("✔️", "✨");
+  text = text.replaceAll("[ ]", "✔️");
+  text = text.replaceAll("⚠️", "⛔️");
+  text = text.replaceAll("🇼🇮", "⚠️");
+  text = text.replaceAll("[!]", "🇼🇮");
+  text = text.replaceAll("📝", "📈");
+  text = text.replaceAll("📉", "📝");
+  text = text.replaceAll("[-]", "📉");
   return text;
 }

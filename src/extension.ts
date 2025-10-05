@@ -3,7 +3,7 @@ import * as vscode from "vscode";
 import { TodoDocumentSymbolProvider } from "./SymbolProvider";
 import { getCWFromDate, getDateWeek } from "./DateUtils";
 import { updateTodoDecorations } from "./TodoDecorations";
-import { markTodoItemAsBlocked, markTodoItemAsDone, markTodoItemAsInProgress, TodoItem } from "./TodoItem";
+import { increaseTodoItemPriority, markTodoItemAsBlocked, markTodoItemAsDone, markTodoItemAsInProgress, TodoItem } from "./TodoItem";
 import {
   markdownListInsertNewItem,
   markdownTodoUpdate,
@@ -48,7 +48,6 @@ export function activate(context: vscode.ExtensionContext) {
       if (editor) {
         triggerUpdateDecorations();
       }
-      myStatusBarItem.show();
       myStatusBarItem.show();
     },
     null,
@@ -113,6 +112,9 @@ export function activate(context: vscode.ExtensionContext) {
   vscode.commands.registerCommand("kdbTodo.postpone", () => {
     // TODO (add date?)
     markdownTodoUpdate(markTodoItemAsBlocked);
+  });
+  vscode.commands.registerCommand("kdbTodo.increasePriority", () => {
+    markdownTodoUpdate(increaseTodoItemPriority);
   });
 
   // create a new status bar item that we can now manage

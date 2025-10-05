@@ -2,7 +2,7 @@
   "name": "kdb-md",
   "displayName": "kdb.md",
   "description": "Markdown knowledge database",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.90.0"
   },
@@ -49,6 +49,10 @@
         "title": "Set blocked"
       },
       {
+        "command": "kdbTodo.increasePriority",
+        "title": "Increse priority"
+      },
+      {
         "command": "kdbTodo.postpone",
         "title": "Postpone"
       }
@@ -68,16 +72,24 @@
       ],
       "kdbTodo.submenu": [
         {
-          "command": "kdbTodo.markDone"
+          "command": "kdbTodo.markDone",
+          "group": "@1"
         },
         {
-          "command": "kdbTodo.markInProgress"
+          "command": "kdbTodo.markInProgress",
+          "group": "@1"
         },
         {
-          "command": "kdbTodo.markBlocked"
+          "command": "kdbTodo.markBlocked",
+          "group": "@2"
         },
         {
-          "command": "kdbTodo.postpone"
+          "command": "kdbTodo.postpone",
+          "group": "@2"
+        },
+        {
+          "command": "kdbTodo.increasePriority",
+          "group": "@3"
         }
       ]
     }

@@ -2,54 +2,45 @@
     "emoji item": {
         "prefix": "/emoji",
         "body": [
-            "${1|🔷,📈,✔️,⚠️,⏳,🚧,❓,❗,‼️,ℹ️,💡,📌,🚩,➡️,📝,🕒,🗓️,❌,🌎,📧,🎯,🧩,🏷️,🔍,🔥,📞,⚙️,🔗|}",
+            "${1|❓,❗,‼️,💡,📌,🚩,➡️,🕒,🗓️,❌,🌎,📧,🎯,🧩,🏷️,🔍,🔥,📞,✔️ ,🔗|}",
         ],
         "description": "emoji item"
     },
-    "todo priority item": {
-        "prefix": "/todo-priority",
+    "todo item list": {
+        "prefix": "/todo",
         "body": [
-            "${1|🔷,❗,‼️|} ${2:Important}",
+            "- ✔️ ${1:TODO}",
+            "$0"
+        ],
+        "description": "todo item"
+    },
+    "todo priority item": {
+        "prefix": "/todo-prio",
+        "body": [
+            "- ${1|✨,‼️|} ${2:Important}",
             "$0"
         ],
         "description": "todo item with priority"
     },
     "todo item": {
-        "prefix": "/todo",
+        "prefix": "/task",
         "body": [
-            "🔷 ${1:TODO}",
-            "$0"
-        ],
-        "description": "todo item"
-    },
-    "todo item list": {
-        "prefix": "/todo-list",
-        "body": [
-            "- 🔷 ${1:TODO}",
-            "$0"
+            "[ ]️ ${1:TODO} $0",
         ],
         "description": "todo item"
     },
     "todo item subtask": {
         "prefix": "/todo-subtask",
         "body": [
-            "   - 🔷 ${1:TODO}",
-            "$0"
-        ],
-        "description": "todo item"
-    },
-    "todo item 2": {
-        "prefix": "TODO",
-        "body": [
-            "🔷 ${1:TODO}",
+            "   - [ ] ${1:TODO}",
             "$0"
         ],
         "description": "todo item"
     },
     "status item": {
-        "prefix": "/status",
+        "prefix": "/todo-status",
         "body": [
-            "${1|🔷,📈,✔️,🚩|}$0",
+            "${1|✔️,📉,☑|}$0",
         ],
         "description": "todo item"
     },
@@ -59,7 +50,7 @@
         "body": [
             "➡️ $1",
         ],
-        "description": "todo item"
+        "description": "result item"
     },
     "h1 headline": {
         "prefix": "/h1",

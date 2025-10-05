@@ -42,13 +42,7 @@ export class MarkDoneAction implements vscode.CodeActionProvider {
       const markBlocked = this.createMarkBlockedFix(document, range);
       result.push(markBlocked);
     }
-
-    if (!(todoItem.priority === TodoPriority.Critical)) {
-      const increasePriority = this.createIncreasePriorityFix(document, range);
-      result.push(increasePriority);
-    }
     return result;
-
   }
 
   private createMarkDoneFix(
@@ -105,22 +99,5 @@ export class MarkDoneAction implements vscode.CodeActionProvider {
     );
     return fix;
   }
-  private createIncreasePriorityFix(
-    document: vscode.TextDocument,
-    range: vscode.Range
-  ): vscode.CodeAction {
-    let text = document.getText(range);
-    const changedText =  increaseTodoItemPriority(text);
-    const fix = new vscode.CodeAction(
-      `Increse priority`,
-      vscode.CodeActionKind.QuickFix
-    );
-    fix.edit = new vscode.WorkspaceEdit();
-    fix.edit.replace(
-      document.uri,
-      new vscode.Range(range.start, range.end),
-      changedText
-    );
-    return fix;
-  }
+  
 }
