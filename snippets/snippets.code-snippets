@@ -2,7 +2,7 @@
     "emoji item": {
         "prefix": "/emoji",
         "body": [
-            "${1|❓,❗,‼️,💡,📌,🚩,➡️,🕒,🗓️,❌,🌎,📧,🎯,🧩,🏷️,🔍,🔥,📞,✔️ ,🔗|}",
+            "${1|❓,❗,‼️,💡,📌,🚩,➡️,🕒,🗓️,❌,🌎,📧,🎯,🧩,🏷️,🔍,🔥,📞,🔗|}",
         ],
         "description": "emoji item"
     },
@@ -44,7 +44,6 @@
         ],
         "description": "todo item"
     },
-    
     "result item": {
         "prefix": "/result",
         "body": [
@@ -52,6 +51,30 @@
         ],
         "description": "result item"
     },
+    "note item": {
+        "prefix": "/note",
+        "body": [
+            "> 📝</${CURRENT_MONTH}/${CURRENT_DATE}> $1",
+            "$0"
+        ],
+        "description": "note item"
+    },
+    "pin item": {
+        "prefix": "/pin",
+        "body": [
+            "> 📌</${CURRENT_MONTH}/${CURRENT_DATE}> $1",
+            "$0"
+        ],
+        "description": "note item"
+    },
+    "idea item": {
+        "prefix": "/idea",
+        "body": [
+            "> 💡<${CURRENT_MONTH}/${CURRENT_DATE}> $1"
+        ],
+        "description": "note item"
+    },
+    
     "h1 headline": {
         "prefix": "/h1",
         "body": [

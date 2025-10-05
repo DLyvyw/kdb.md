@@ -48,7 +48,7 @@ export function activate(context: vscode.ExtensionContext) {
       if (editor) {
         triggerUpdateDecorations();
       }
-      myStatusBarItem.show();
+      todoStatusBarItem.show();
     },
     null,
     context.subscriptions
@@ -69,27 +69,6 @@ export function activate(context: vscode.ExtensionContext) {
     new TodoDocumentSymbolProvider()
   );
 
-  // register a command that is invoked when the status bar
-  // item is selected
-  vscode.commands.registerCommand("kdbTodo.onCWStatusBarClick", () => {
-    /* {
-      query: string,
-      includes: string,
-      excludes: string,
-      contextLines: number,
-      wholeWord: boolean,
-      caseSensitive: boolean,
-      regexp: boolean,
-      useIgnores: boolean,
-      showIncludesExcludes: boolean,
-    } */
-    vscode.commands.executeCommand("search.action.openEditor", {
-      query: TodoItem.RegEx.source,
-      includes: "*.md",
-      regexp: true,
-      triggerSearch: true,
-    });
-  });
 
   context.subscriptions.push(
     vscode.commands.registerTextEditorCommand(
@@ -117,16 +96,64 @@ export function activate(context: vscode.ExtensionContext) {
     markdownTodoUpdate(increaseTodoItemPriority);
   });
 
-  // create a new status bar item that we can now manage
-  const myStatusBarItem = vscode.window.createStatusBarItem(
+  const todoStatusBarItem = vscode.window.createStatusBarItem(
     vscode.StatusBarAlignment.Left,
     100
   );
+  todoStatusBarItem.command = "kdbTodo.todoStatusBarClick";
+  todoStatusBarItem.text = `$(notebook-state-success) Todo`;
+  todoStatusBarItem.show();
+
+  vscode.commands.registerCommand("kdbTodo.todoStatusBarClick", () => {
+    /* {
+      query: string,
+      includes: string,
+      excludes: string,
+      contextLines: number,
+      wholeWord: boolean,
+      caseSensitive: boolean,
+      regexp: boolean,
+      useIgnores: boolean,
+      showIncludesExcludes: boolean,
+    } */
+    vscode.commands.executeCommand("search.action.openEditor", {
+      query: TodoItem.RegEx.source,
+      includes: "*.md",
+      regexp: true,
+      triggerSearch: true,
+    });
+  });
+  const journalStatusBarItem = vscode.window.createStatusBarItem(
+    vscode.StatusBarAlignment.Left,
+    100
+  );
+
   const weekNumber = getCWFromDate(new Date());
-  myStatusBarItem.command = "kdbTodo.onCWStatusBarClick";
-  myStatusBarItem.text = `${weekNumber}`;
-  myStatusBarItem.color = "red";
-  myStatusBarItem.show();
+  journalStatusBarItem.command = "kdbTodo.journalStatusBarClick";
+  journalStatusBarItem.text = `$(notebook-edit) ${weekNumber}`;
+  journalStatusBarItem.show();
+
+  vscode.commands.registerCommand("kdbTodo.journalStatusBarClick", () => {
+    /* {
+      query: string,
+      includes: string,
+      excludes: string,
+      contextLines: number,
+      wholeWord: boolean,
+      caseSensitive: boolean,
+      regexp: boolean,
+      useIgnores: boolean,
+      showIncludesExcludes: boolean,
+    } */
+    vscode.commands.executeCommand("search.action.openEditor", {
+      query: (/[📝|💡|📌|🚩|❓](<(((\/)?(\d+)\/(\d+))|(CW(\d+)\.(\d+)))>)?/gi).source,
+      wholeWorld: true,
+      contextLines: 2,
+      includes: "*.md",
+      regexp: true,
+      triggerSearch: true,
+    });
+  });
 
   context.subscriptions.push(
     vscode.languages.registerCodeActionsProvider(
