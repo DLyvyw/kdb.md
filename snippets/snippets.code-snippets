@@ -2,7 +2,7 @@
     "emoji item": {
         "prefix": "/emoji",
         "body": [
-            "${1|❓,❗,‼️,💡,📌,🚩,➡️,🕒,🗓️,❌,🌎,📧,🎯,🧩,🏷️,🔍,🔥,📞,🔗|}",
+            "${1|❓,❗,🎯,💡,📌,🚩,➡️,🕒,🗓️,❌,🌎,📧,🎯,🧩,🏷️,🔍,🎯,📞,🔗|}",
         ],
         "description": "emoji item"
     },
@@ -17,7 +17,7 @@
     "todo priority item": {
         "prefix": "/todo-prio",
         "body": [
-            "- ${1|✨,‼️|} ${2:Important}",
+            "- ${1|⚡,🎯|} ${2:Important}",
             "$0"
         ],
         "description": "todo item with priority"
@@ -40,7 +40,7 @@
     "status item": {
         "prefix": "/todo-status",
         "body": [
-            "${1|✔️,📉,☑|}$0",
+            "${1|✔️,🌀,☑|}$0",
         ],
         "description": "todo item"
     },
