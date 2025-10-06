@@ -146,7 +146,7 @@ export function activate(context: vscode.ExtensionContext) {
       showIncludesExcludes: boolean,
     } */
     vscode.commands.executeCommand("search.action.openEditor", {
-      query: (/[📝|💡|📌|🚩|❓](<(((\/)?(\d+)\/(\d+))|(CW(\d+)\.(\d+)))>)?/gi).source,
+      query: (/[📝💡📌🚩❓](<(((\/)?(\d+)\/(\d+))|(CW(\d+)\.(\d+)))>)?/gi).source,
       wholeWorld: true,
       contextLines: 2,
       includes: "*.md",
